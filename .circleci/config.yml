@@ -36,3 +36,8 @@ jobs:
       - store_artifacts:
           path: app/build/outputs/apk/debug
           destination: apk_folder
+
+      - run:
+          name: Upload to Slack
+          command: |
+            curl -F file=@app/build/outputs/apk/production/debug/app-debug.apk -F "initial_comment=export latest debug apk" -F channels=sumyattesting -F token=$TOKEN -F title="production app" https://slack.com/api/files.upload
